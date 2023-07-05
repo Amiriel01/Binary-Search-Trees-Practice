@@ -1,4 +1,4 @@
-# Binary-Search-Trees-Practice
+# Binary-Search-Tree-Practice
 Work in Progress
 
 **Objective**
