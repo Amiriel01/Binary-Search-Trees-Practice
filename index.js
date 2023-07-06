@@ -28,6 +28,9 @@ class tree {
     constructor(inputArray) {
         //calls the build tree function and inputs the inputArray(user input), start(location 0), and end(inputArray.length -1 is the end of the array) parameters from the function//
         this.root = this.buildTree(inputArray, 0, inputArray.length - 1);
+        this.preOrderData = [];
+        this.inOrderData = [];
+        this.postOrderData = [];
         //will input the value from the root in the prettry print function to print it in a bst format//
         prettyPrint(this.root);
     }
@@ -108,8 +111,78 @@ class tree {
         prettyPrint(this.root);
         return root;
     }
-}
 
+    //
+    levelOrder(root = this.root) {
+        //queue is a temp storage space, final result will go in result//
+        let queue = [];
+        let result = [];
+
+        if (root === null) return;
+        //push current root value to queue//
+        queue.push(root);
+
+        while (queue.length > 0) {
+            let current = queue.shift(root);
+            result.push(current.data);
+
+            if (current.left !== null) queue.push(current.left);
+            if (current.right !== null) queue.push(current.right);
+        }
+        console.log("level ordered tree", result);
+        return result;
+    }
+    inOrder(root = this.root) {
+        if (root === null) return;
+
+        if (root.left !== null) {
+            this.inOrder(root.left);
+        }
+
+        if (root.data !== undefined) {
+            this.inOrderData.push(root.data);
+        }
+
+        if (root.right !== null) {
+            this.inOrder(root.right);
+        }
+        console.log("print tree in order", `${this.inOrderData}`);
+    }
+    preOrder(root = this.root) {
+        if (root === null) return;
+
+        if (root.data !== undefined) {
+            this.preOrderData.push(root.data);
+        }
+
+        if (root.left !== null) {
+            this.preOrder(root.left);
+        }
+
+        if (root.right !== null) {
+            this.preOrder(root.right);
+        }
+        console.log("print tree in preorder", `${this.preOrderData}`);
+    }
+
+    postOrder(root = this.root) {
+        if (root === null) return;
+
+        if (root.left !== null) {
+            this.postOrder(root.left);
+        }
+
+        if (root.right !== null) {
+            this.postOrder(root.right);
+        }
+
+        if (root.data !== undefined) {
+            this.postOrderData.push(root.data);
+        }
+
+        console.log("print tree in postorder", `${this.postOrderData}`);
+    }
+}
 
 //when root is available iterate through root.left to find the minimum value of the root and return the minimum found//
 function minValue(root) {
@@ -130,6 +203,10 @@ balancedBST = new tree(testInputArray, 1, 7);
 balancedBST.insert(8);
 balancedBST.delete(3);
 console.log(balancedBST.find(10));
+balancedBST.levelOrder();
+balancedBST.inOrder();
+balancedBST.preOrder();
+balancedBST.postOrder();
 
 
 
