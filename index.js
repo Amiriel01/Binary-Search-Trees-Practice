@@ -47,10 +47,90 @@ class tree {
         root.right = this.buildTree(inputArray, mid + 1, end);
         //return the root value//
         return root;
+    };
+    //insert will insert a value//
+    insert(value, root = this.root) {
+        //if root is null create a new node with the user's value given//
+        if (root === null) {
+            return (root = new node(value));
+        }
+        //if what the user puts in to insert is larger than the value then look at the right of the root till it finds the correct location to insert//
+        if (root.data < value) {
+            root.right = this.insert(value, root.right);
+            //if what the user puts in to insert is lesser than the value then look at the left of the root till it finds the correct location to insert//
+        } else {
+            root.left = this.insert(value, root.left);
+        }
+        prettyPrint(this.root);
+        return root;
+    };
+
+    //delete will delete items from the array//
+    delete(value, root = this.root) {
+        //if root is equal to null return the root because the user's value to delete was not available//
+        if (root === null) {
+            return root;
+        }
+        //if the value entered is less than the root data search down the left of the tree//
+        if (root.data > value) {
+            root.left = this.delete(value, root.left);
+            //if the value entered is more than the root data search down the right of the tree//
+        } else if (root.data < value) {
+            root.right = this.delete(value, root.right);
+            //if the value is not less or greater return the side that is not null//
+        } else {
+            if (root.left === null) {
+                return root.right;
+            } else if (root.right === null) {
+                return root.left;
+            }
+            //minValue helper function written below//
+            root.data = minValue(root);
+            root.right = this.delete(root.right, root.data);
+        }
+        prettyPrint(this.root);
+        return root;
     }
-};
-//create test array variable so you only have to change it once if you change the array values//
+
+    //find will accept a value and return the node the value is in//
+    find(value, root = this.root) {
+        //if the value the user inputs is not in the tree returns null//
+        if (root === null) return false;
+        //if the user value entered is the root then return the root//
+        if (root.data === value) return root;
+        //if the user value is less than the root search the left tree for the value//
+        if (root.data > value) {
+            return this.find(value, root.left);
+            //if the user value is greater than the root search the right tree for the value//
+        } else if (root.data < value) {
+            return this.find(value, root.right);
+        }
+        prettyPrint(this.root);
+        return root;
+    }
+}
+
+
+//when root is available iterate through root.left to find the minimum value of the root and return the minimum found//
+function minValue(root) {
+    let min = root.data;
+    while (root != null) {
+        min = root.data;
+        root = root.left;
+    }
+    prettyPrint(this.root);
+    return min;
+}
+
+
+// create test array variable so you only have to change it once if you change the array values//
 let testInputArray = [1, 2, 3, 4, 5, 6, 7];
-//take the testInputArray and start at 1 and end at 7//
-balancedBST = new tree (testInputArray, 1, 7);
+// take the testInputArray and start at 1 and end at 7//
+balancedBST = new tree(testInputArray, 1, 7);
+balancedBST.insert(8);
+balancedBST.delete(3);
+console.log(balancedBST.find(10));
+
+
+
 

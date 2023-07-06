@@ -15,5 +15,21 @@ The Bianary Search Tree includes:
 
 4. The code includes a prettyPrint function to show the array in the terminal in a binary tree format. I got this code from The Odin Project lesson on binary trees.
 
-5. 
+5. I will practice writing an insert and delete function which accepts a value to insert/delete.
+
+6. I will practice writing a find function which accepts a value and returns the node with the given value.
+
+7. I will practice writing a levelOrder function which accepts another function as a parameter. The levelOrder function will traverse the tree in breadth-first level order and provide each node as the argument to the provided function. 
+
+8. I will practice writing a height function which accepts a node and returns its height.
+
+9. I will practice writing a height function which accepts a node and returns its height.
+
+10. I will practice writing a isBalanced function which checks if the tree is balanced. 
+
+11. I will practice writing a rebalance function which rebalances an unbalanced tree.
+
+12. I will practice writing a driver script to tie it all together. 
+
+
 
