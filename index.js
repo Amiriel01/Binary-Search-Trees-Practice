@@ -27,7 +27,7 @@ class tree {
     //input array is input from the user//
     constructor(inputArray) {
         //calls the build tree function and inputs the inputArray(user input), start(location 0), and end(inputArray.length -1 is the end of the array) parameters from the function//
-        this.root = this.buildTree(inputArray, 0, inputArray.lengh - 1);
+        this.root = this.buildTree(inputArray, 0, inputArray.length - 1);
         //will input the value from the root in the prettry print function to print it in a bst format//
         prettyPrint(this.root);
     }
