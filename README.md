@@ -28,7 +28,7 @@ The Bianary Search Tree includes:
 
 11. I will practice writing a rebalance function which rebalances an unbalanced tree.
 
-12. I will practice writing a driver script to tie it all together. 
+12. All of the functions use console.log to show they are working. 
 
 
 
