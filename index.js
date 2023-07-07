@@ -182,6 +182,80 @@ class tree {
 
         console.log("print tree in postorder", `${this.postOrderData}`);
     }
+
+    height(root = this.root) {
+        if (root === null) {
+            //-1 tells the user they have entered a value that isn't there//
+            return -1;
+        } else {
+            let left = this.height(root.left);
+            let right = this.height(root.right);
+            //this will give a value of 0 (-1 + 1 = 0) if there is a height of one//
+            //max will return the largest of left or right then add one//
+            return Math.max(left, right) + 1;
+        }
+    }
+    //nodeVal is the input from the user//
+    //edge count starts at zero, depth is the number of edges in a path from a node to the root node//
+    depth(nodeVal, root = this.root, edgeCount = 0) {
+        if (root === null) return;
+        //if the root and the user input are equal the edge count will return 0 because it never moved//
+        if (root.data === nodeVal) return edgeCount;
+        //node value is less than than the user value given check the right tree and count edges//
+        if (root.data < nodeVal) {
+            return this.depth(nodeVal, root.right, (edgeCount +1));
+            //node value is greater than than the user value given check the left tree and count edges//
+        } else {
+            return this.depth(nodeVal, root.left, (edgeCount +1));
+        }
+    }
+
+    //checks to see if the heights of the left and right trees are within one node of each other//
+    isBalanced(root = this.root) {
+        if (root === null) return false;
+
+        let leftHalf = root.left;
+        let rightHalf = root.right;
+        //call height and go through height method with both halves then subtract left minus right then return false or true//
+        //abs means absolute and it returns the absolute value of the equation//
+        if (Math.abs(this.height(leftHalf) - this.height(rightHalf)) > 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    //this function will rebalance an unbalanced tree//
+    rebalance() {
+    //shows what it looks like before rebalancing//
+    prettyPrint(this.root);
+    if (this.isBalanced(this.root)) return this.root;
+
+    let rebalancedNewTreeArray = [];
+    //the empty array is filled when the recursion is run//
+    //traverse function written below//
+    rebalancedNewTreeArray = this.traverse(this.root, rebalancedNewTreeArray);
+
+    let balancedTree = new tree(rebalancedNewTreeArray);
+    //shows what it looks like after rebalancing//
+    prettyPrint(balancedTree.root);
+
+    console.log("Is the tree is balanced?", balancedTree.isBalanced());
+    return balancedTree.root;
+    }
+
+    //traverses over the left and right until null is located then return the array into the newBalancedTreeArray above//
+    traverse(root, array) {
+        if (array !== undefined) array.push(root.data);
+        if (root.left !== null) {
+            this.traverse(root.left, array);
+        }
+
+        if (root.right !== null) {
+            this.traverse(root.right, array);
+        }
+        return array;
+    }
 }
 
 //when root is available iterate through root.left to find the minimum value of the root and return the minimum found//
@@ -207,7 +281,10 @@ balancedBST.levelOrder();
 balancedBST.inOrder();
 balancedBST.preOrder();
 balancedBST.postOrder();
-
+console.log("tree height", balancedBST.height());
+console.log("tree depth", balancedBST.depth(7));
+console.log("Is the tree balanced?", balancedBST.isBalanced());
+console.log("tree rebalancing", balancedBST.rebalance());
 
 
 
